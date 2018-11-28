@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'mana-font';
-import bgColors from './bgColors';
-import fgColors from './fgColors';
-import mtgMarks from './mf-vars';
+import mtgThemes from './mtgThemes';
 
 // class Header extends Component {}
 function Header(props) {
@@ -22,6 +20,8 @@ class Counter extends Component {
       value: this.props.value,
       icon: this.props.icon
     };
+
+    console.log(mtgThemes[1]);
   }
 
   handleChange(dir, amt = 1) {
@@ -33,7 +33,7 @@ class Counter extends Component {
   }
 
   changeIcon() {
-    if (this.state.icon <= 18) {
+    if (this.state.icon <= 5) {
       this.setState({icon: this.state.icon + 1});
     } else {
       this.setState({icon: 0});
@@ -42,7 +42,7 @@ class Counter extends Component {
 
   render() {
     return (
-      <div className="counter-wrapper" style={{backgroundColor: bgColors[this.state.icon]}}>
+      <div className="counter-wrapper" style={{backgroundColor: mtgThemes[this.state.icon]['bg']}}>
         <div className="counter">
 
           <div className="increment-column col-pos button-group has-3-buttons">
@@ -52,8 +52,8 @@ class Counter extends Component {
           </div>
 
           <div className="value-wrapper">
-            <button onClick={() => this.changeIcon()} className="counter-icon" style={{backgroundColor: fgColors[this.state.icon]}}>
-              <i className={'ms ms-' + mtgMarks[this.state.icon]}></i>
+            <button onClick={() => this.changeIcon()} className="counter-icon" style={{backgroundColor: mtgThemes[this.state.icon]['fg']}}>
+              <i className={'ms ms-' + mtgThemes[this.state.icon]['icon']}></i>
             </button>
             <h4 className="current-value">{this.state.value}</h4>
           </div>

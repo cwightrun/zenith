@@ -101,6 +101,11 @@ button:active::after {
   font-size: 24px;
 }
 
+button.counter-icon::after,
+button.counter-icon:active::after {
+  border-radius: 100%;
+}
+
 .counter-icon i {
   display: flex;
   flex-flow: row nowrap;
