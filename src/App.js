@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'mana-font';
-import colorVars from './color-vars';
+import bgColors from './bgColors';
+import fgColors from './fgColors';
 import mtgMarks from './mf-vars';
 
 // class Header extends Component {}
 function Header(props) {
   return (
     <header className="header">
-      <h1>Zenith Counter.</h1>
-      <p>It's magic.</p>
+      <h1>Zenith Counter</h1>
+      <p>It's magic, probably.</p>
     </header>
   )
 }
@@ -41,7 +42,7 @@ class Counter extends Component {
 
   render() {
     return (
-      <div className="counter-wrapper">
+      <div className="counter-wrapper" style={{backgroundColor: bgColors[this.state.icon]}}>
         <div className="counter">
 
           <div className="increment-column col-pos button-group has-3-buttons">
@@ -50,8 +51,8 @@ class Counter extends Component {
           <button className="value-10" onClick={() => {this.handleChange('positive', 10)}}>+10</button>
           </div>
 
-          <div class="value-wrapper">
-            <button onClick={() => this.changeIcon()} className="counter-icon" style={{backgroundColor: colorVars[this.state.icon]}}>
+          <div className="value-wrapper">
+            <button onClick={() => this.changeIcon()} className="counter-icon" style={{backgroundColor: fgColors[this.state.icon]}}>
               <i className={'ms ms-' + mtgMarks[this.state.icon]}></i>
             </button>
             <h4 className="current-value">{this.state.value}</h4>
@@ -85,10 +86,12 @@ class App extends Component {
     }
   }
 
-  addCounter(type) {
-    var newCounters = this.state.counters.slice();
-    newCounters.push({value: 0});
-    this.setState({counters: newCounters});
+  changeCounters(type) {
+    if (type === 'add') {
+      var newCounters = this.state.counters.slice();
+      newCounters.push({value: 0});
+      this.setState({counters: newCounters});
+    }
   }
 
   render() {
@@ -97,7 +100,9 @@ class App extends Component {
       <div className="App">
         <Header />
         <main>
-          <button onClick={() => {this.addCounter('life')}}>Add Counter</button>
+          <div className="manage-counters">
+            <button onClick={() => {this.changeCounters('add')}}>Add Counter</button>
+          </div>
           <div className="all-counters">
             {counters.map((counter, i) =>
               <Counter key={i} value={counter.value} icon={0} />

@@ -26,8 +26,8 @@ body {
   color: white;
 }
 
-header {
-  padding-bottom: 24px;
+main .manage-counters {
+  padding: 0 0 12px 0;
 }
 
 .App button {
@@ -99,6 +99,13 @@ button:active::after {
   height: 40px;
   border-radius: 100%;
   font-size: 24px;
+}
+
+.counter-icon i {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .current-value {
