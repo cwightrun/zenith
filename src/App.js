@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'mana-font';
+import colorVars from './color-vars';
+import mtgMarks from './mf-vars';
 
 // class Header extends Component {}
 function Header(props) {
   return (
     <header className="header">
-      <h3>Zenith Commander Counter.</h3>
+      <h1>Zenith Counter.</h1>
+      <p>It's magic.</p>
     </header>
   )
 }
@@ -15,37 +19,58 @@ class Counter extends Component {
     super(props);
     this.state = {
       value: this.props.value,
+      icon: this.props.icon
     };
   }
 
-  handleSet(amt) {
-    this.setState({value: amt});
-  }
-
-  handleReset() {
-    this.setState({value: 0});
-  }
-
-  handleIncrement(dir) {
+  handleChange(dir, amt = 1) {
     let newValue = this.state.value;
-    if (dir === 'negative') newValue = newValue - 1;
-    if (dir === 'positive') newValue = newValue + 1;
-
+    if (dir === 'negative') newValue = newValue - amt;
+    if (dir === 'positive') newValue = newValue + amt;
+    if (dir === 'reset') newValue = amt;
     this.setState({value: newValue});
+  }
+
+  changeIcon() {
+    if (this.state.icon <= 18) {
+      this.setState({icon: this.state.icon + 1});
+    } else {
+      this.setState({icon: 0});
+    }
   }
 
   render() {
     return (
       <div className="counter-wrapper">
-        <div className="resets">
-          <button onClick={() => this.handleReset()}>Reset</button>
-          <button onClick={() => this.handleSet(20)}>Set to 20</button>
-          <button onClick={() => this.handleSet(40)}>Set to 40</button>
-        </div>
         <div className="counter">
-          <button onClick={() => {this.handleIncrement('positive')}}>+</button>
-          <h1 className="current-value">{this.state.value}</h1>
-          <button onClick={() => {this.handleIncrement('negative')}}>-</button>
+
+          <div className="increment-column col-pos button-group has-3-buttons">
+          <button className="value-1" onClick={() => {this.handleChange('positive', 1)}}>+1</button>
+          <button className="value-5" onClick={() => {this.handleChange('positive', 5)}}>+5</button>
+          <button className="value-10" onClick={() => {this.handleChange('positive', 10)}}>+10</button>
+          </div>
+
+          <div class="value-wrapper">
+            <button onClick={() => this.changeIcon()} className="counter-icon" style={{backgroundColor: colorVars[this.state.icon]}}>
+              <i className={'ms ms-' + mtgMarks[this.state.icon]}></i>
+            </button>
+            <h4 className="current-value">{this.state.value}</h4>
+          </div>
+
+          <div className="increment-column col-neg button-group has-3-buttons">
+          <button className="value-10" onClick={() => {this.handleChange('negative', 10)}}>-10</button>
+          <button className="value-5" onClick={() => {this.handleChange('negative', 5)}}>-5</button>
+          <button className="value-1" onClick={() => {this.handleChange('negative', 1)}}>-1</button>
+          </div>
+
+        </div>
+
+        <div className="resets button-group has-5-buttons">
+          <button onClick={() => this.handleChange('reset', 0)}>0</button>
+          <button onClick={() => this.handleChange('reset', 20)}>20</button>
+          <button onClick={() => this.handleChange('reset', 40)}>40</button>
+          <button onClick={() => this.handleChange('reset', 60)}>60</button>
+          <button onClick={() => this.handleChange('reset', 80)}>80</button>
         </div>
       </div>
     );
@@ -56,13 +81,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counters: [{
-        value: 0
-      }, {
-        value: 0
-      }, {
-        value: 0
-      }]
+      counters: [{value: 0}],
     }
   }
 
@@ -77,19 +96,23 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-
         <main>
-
-          <p>Here's a thing.</p>
-
-          <button onClick={() => {this.addCounter('life')}}>Add Life Counter</button>
-          {counters.map((counter, i) =>
-            <Counter key={i} value={counter.value} />
-          )}
+          <button onClick={() => {this.addCounter('life')}}>Add Counter</button>
+          <div className="all-counters">
+            {counters.map((counter, i) =>
+              <Counter key={i} value={counter.value} icon={0} />
+            )}
+          </div>
 
           <style jsx>{`
-            p {
-              color: red;
+            main {
+              font-size: 16px;
+            }
+
+            .all-counters {
+              display: flex;
+              flex-flow: row wrap;
+              justify-content: space-between;
             }
           `}</style>
 

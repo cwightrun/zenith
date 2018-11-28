@@ -1,5 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #263238;
+  color: #FAFAFA;
+}
+
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -18,15 +26,129 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+header {
+  padding-bottom: 24px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App button {
+  position: relative;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ECEFF1;
+  border: none;
+  transform: translate3d(0, 0, 0);
+}
+
+button::after {
+  content: '';
+  background: #18FFFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity ease 100ms;
+}
+
+button:active::after {
+  opacity: 0.5;
+}
+
+.App button:focus,
+.App button:active {
+  outline: none;
+}
+
+.counter-wrapper {
+  flex-basis: 45%;
+  padding: 1.25%;
+  margin: 0 1.25% 24px;
+  background: #37474F;
+  border-radius: 4px;
+}
+
+.counter {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.increment-column {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.increment-column button {
+  flex-basis: 33%;
+}
+
+.value-wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.counter-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  font-size: 24px;
+}
+
+.current-value {
+  margin: 0;
+  padding: 0;
+  font-size: 64px;
+  width: 66%;
+}
+
+.resets {
+  padding-top: 12px;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.resets button {
+  width: 20%;
+}
+
+.has-3-buttons button.value-10 {
+  border-bottom: 1px solid #F4511E;
+}
+
+.has-3-buttons button.value-5 {
+  border-bottom: 1px solid #039BE5;
+}
+
+.has-3-buttons button.value-1 {
+  border-bottom: 1px solid #00BFA5;
+}
+
+.has-5-buttons button:nth-last-of-type(1) {
+  border-bottom: 1px solid #E53935;
+}
+
+.has-5-buttons button:nth-last-of-type(2) {
+  border-bottom: 1px solid #8E24AA;
+}
+
+.has-5-buttons button:nth-last-of-type(3) {
+  border-bottom: 1px solid #1976D2;
+}
+
+.has-5-buttons button:nth-last-of-type(4) {
+  border-bottom: 1px solid #00ACC1;
+}
+
+.has-5-buttons button:nth-last-of-type(5) {
+  border-bottom: 1px solid #C0CA33;
 }
