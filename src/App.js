@@ -1,97 +1,42 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'mana-font';
-import mtgThemes from './mtgThemes';
-
-// class Header extends Component {}
-function Header(props) {
-  return (
-    <header className="header">
-      <h1>Zenith Counter</h1>
-      <p>It's magic, probably.</p>
-    </header>
-  )
-}
-
-class Counter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: this.props.value,
-      icon: this.props.icon
-    };
-
-    console.log(mtgThemes[1]);
-  }
-
-  handleChange(dir, amt = 1) {
-    let newValue = this.state.value;
-    if (dir === 'negative') newValue = newValue - amt;
-    if (dir === 'positive') newValue = newValue + amt;
-    if (dir === 'reset') newValue = amt;
-    this.setState({value: newValue});
-  }
-
-  changeIcon() {
-    if (this.state.icon <= 5) {
-      this.setState({icon: this.state.icon + 1});
-    } else {
-      this.setState({icon: 0});
-    }
-  }
-
-  render() {
-    return (
-      <div className="counter-wrapper" style={{backgroundColor: mtgThemes[this.state.icon]['bg']}}>
-        <div className="counter">
-
-          <div className="increment-column col-pos button-group has-3-buttons">
-          <button className="value-1" onClick={() => {this.handleChange('positive', 1)}}>+1</button>
-          <button className="value-5" onClick={() => {this.handleChange('positive', 5)}}>+5</button>
-          <button className="value-10" onClick={() => {this.handleChange('positive', 10)}}>+10</button>
-          </div>
-
-          <div className="value-wrapper">
-            <button onClick={() => this.changeIcon()} className="counter-icon" style={{backgroundColor: mtgThemes[this.state.icon]['fg']}}>
-              <i className={'ms ms-' + mtgThemes[this.state.icon]['icon']}></i>
-            </button>
-            <h4 className="current-value">{this.state.value}</h4>
-          </div>
-
-          <div className="increment-column col-neg button-group has-3-buttons">
-          <button className="value-10" onClick={() => {this.handleChange('negative', 10)}}>-10</button>
-          <button className="value-5" onClick={() => {this.handleChange('negative', 5)}}>-5</button>
-          <button className="value-1" onClick={() => {this.handleChange('negative', 1)}}>-1</button>
-          </div>
-
-        </div>
-
-        <div className="resets button-group has-5-buttons">
-          <button onClick={() => this.handleChange('reset', 0)}>0</button>
-          <button onClick={() => this.handleChange('reset', 20)}>20</button>
-          <button onClick={() => this.handleChange('reset', 40)}>40</button>
-          <button onClick={() => this.handleChange('reset', 60)}>60</button>
-          <button onClick={() => this.handleChange('reset', 80)}>80</button>
-        </div>
-      </div>
-    );
-  }
-}
+import Header from './Header/Header';
+import Counter from './Counter/Counter';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counters: [{value: 0}],
+      counters: [
+        {id: 0, value: 40, icon: 0},
+        {id: 1, value: 20, icon: 1},
+        {id: 2, value: 20, icon: 2},
+        {id: 3, value: 20, icon: 3},
+      ],
     }
+
+    console.log('this.state.counters', this.state.counters);
+
+    // Bindings
+    this.addCounter = this.addCounter.bind(this);
+    this.removeCounter = this.removeCounter.bind(this);
   }
 
-  changeCounters(type) {
-    if (type === 'add') {
-      var newCounters = this.state.counters.slice();
-      newCounters.push({value: 0});
-      this.setState({counters: newCounters});
-    }
+  addCounter(type, id) {
+    let counters = [...this.state.counters]; // make a separate copy of the array
+    let length = counters.length;
+
+    counters.push({id: length, value: 0, icon: 0});
+    this.setState({counters: counters});
+  }
+
+  removeCounter(index) {
+    let counters = this.state.counters.filter((counter, counterIndex) => {
+      return counterIndex !== index
+    })
+
+    this.setState({ counters })
   }
 
   render() {
@@ -101,26 +46,13 @@ class App extends Component {
         <Header />
         <main>
           <div className="manage-counters">
-            <button onClick={() => {this.changeCounters('add')}}>Add Counter</button>
+            <button onClick={() => {this.addCounter('add', counters.length)}}>Add Counter</button>
           </div>
           <div className="all-counters">
             {counters.map((counter, i) =>
-              <Counter key={i} value={counter.value} icon={0} />
+              <Counter removeCounter={this.removeCounter} id={i} key={i} value={this.state.counters[i].value} icon={this.state.counters[i].icon} />
             )}
           </div>
-
-          <style jsx>{`
-            main {
-              font-size: 16px;
-            }
-
-            .all-counters {
-              display: flex;
-              flex-flow: row wrap;
-              justify-content: space-between;
-            }
-          `}</style>
-
         </main>
       </div>
     );
