@@ -99,7 +99,7 @@ class Counter extends Component {
           </div>
         </div>
 
-        
+        <button onClick={() => this.props.removeCounter(this.props.counter.id)}>Delete</button>
 
         <div className="resets button-group has-5-buttons">
           <button onClick={() => this.handleChange("reset", 0)}>0</button>
