@@ -1,0 +1,33 @@
+
+button {
+  position: relative;
+  appearance: none;
+  font-family: "Roboto Condensed", sans-serif;
+  background: transparent;
+  color: #eceff1;
+  border: none;
+  transform: translate3d(0, 0, 0);
+  touch-action: manipulation;
+
+  &::after {
+    content: "";
+    background: #18ffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity ease 100ms;
+  }
+
+  &:active::after {
+    opacity: 0.5;
+  }
+  
+  &:focus,
+  &:active {
+    outline: none;
+  }  
+}

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-// class Header extends Component {}
 function Header(props) {
   return (
     <header className="header">
