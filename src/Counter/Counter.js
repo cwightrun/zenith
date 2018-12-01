@@ -30,10 +30,10 @@ class Counter extends Component {
     return (
       <div
         className="counter-wrapper"
-        style={{ backgroundColor: mtgThemes[this.state.icon]["bg"] }}
+        // style={{ backgroundColor: mtgThemes[this.state.icon]["bg"] }}
       >
         <div className="counter">
-          <div className="increment-column col-pos button-group has-3-buttons">
+          <div className="increment-group col-pos button-group has-3-buttons">
             <button
               className="value-1"
               onClick={() => {
@@ -71,7 +71,7 @@ class Counter extends Component {
             <h4 className="current-value">{this.state.value}</h4>
           </div>
 
-          <div className="increment-column col-neg button-group has-3-buttons">
+          <div className="decrement-group col-neg button-group has-3-buttons">
             <button
               className="value-10"
               onClick={() => {
@@ -99,7 +99,7 @@ class Counter extends Component {
           </div>
         </div>
 
-        <button onClick={() => this.props.removeCounter(this.props.counter.id)}>Delete</button>
+        
 
         <div className="resets button-group has-5-buttons">
           <button onClick={() => this.handleChange("reset", 0)}>0</button>

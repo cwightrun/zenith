@@ -9,12 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counters: [
-        { id: uuid(), value: 40, icon: 0 },
-        { id: uuid(), value: 50, icon: 1 },
-        { id: uuid(), value: 60, icon: 2 },
-        { id: uuid(), value: 70, icon: 3 }
-      ]
+      counters: [{ id: uuid(), value: 40, icon: 0 }]
     };
   }
 

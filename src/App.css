@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Open+Sans:600|Playfair+Display:900');
 
 
 body {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
-  background: #263238;
+  background: #000000;
   color: #FAFAFA;
   font-size: 16px;
 }
@@ -20,28 +20,48 @@ body {
   height: 40vmin;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.header {
+  padding-bottom: 4vmin;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0;
+}
+
+.header h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #B0BEC5;
 }
 
 main .manage-counters {
   padding: 0 0 12px 0;
 }
 
+main .manage-counters button {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: #263238;
+}
+
 .App button {
   position: relative;
   appearance: none;
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
+  background: #455A64;
   color: #ECEFF1;
   border: none;
-  font-family: 'News Cycle', sans-serif;
   transform: translate3d(0, 0, 0);
 }
 
@@ -74,10 +94,10 @@ button:active::after {
 }
 
 .counter-wrapper {
-  flex-basis: 49%;
-  /* padding: 1.25%; */
+  flex-basis: 48%;
   padding: 0;
-  margin: 0 0 24px;
+  margin: 0 1% 1vh;
+  border-radius: 16px;
   background: #37474F;
 }
 
@@ -87,13 +107,14 @@ button:active::after {
   align-items: center;
 }
 
-.increment-column {
+.button-group {
   width: 100%;
   display: flex;
 }
 
-.increment-column button {
+.button-group button {
   flex-basis: 34%;
+  font-size: 16px;
 }
 
 .value-wrapper {
@@ -126,8 +147,10 @@ button.counter-icon:active::after {
 .current-value {
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
   font-size: 64px;
   width: 66%;
+  opacity: 0.8;
 }
 
 .resets {
@@ -173,4 +196,20 @@ button.counter-icon:active::after {
 
 .has-5-buttons button:nth-last-of-type(5) {
   border-bottom: 1px solid #C0CA33;
+}
+
+.increment-group button:first-of-type {
+  border-top-left-radius: 16px;
+}
+
+.increment-group button:last-of-type {
+  border-top-right-radius: 16px;
+}
+
+.resets button:first-of-type {
+  border-bottom-left-radius: 16px;
+}
+
+.resets button:last-of-type {
+  border-bottom-right-radius: 16px;
 }

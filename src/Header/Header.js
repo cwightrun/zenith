@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 function Header(props) {
   return (
     <header className="header">
-      <h1>Zenith Counter</h1>
+      <h1>zenith</h1>
+      <h2>A counter app</h2>
     </header>
   )
 }
