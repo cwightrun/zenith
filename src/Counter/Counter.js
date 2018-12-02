@@ -47,18 +47,18 @@ class Counter extends Component {
   render() {
     this.saveCounter(this.props.counter.id);
     return (
-      <div
-        className="counter-wrapper"
-        // style={{ backgroundColor: mtgThemes[this.state.icon]["bg"] }}
-      >
-        <div className="counter">
+      <div className="counter">
+        <button className="delete-counter" onClick={() => this.props.removeCounter(this.props.counter.id)}>
+          <div>&#215;</div>
+        </button>
+        <div className="counter-content">
           <div className="value-wrapper">
             <button
               onClick={() => this.changeIcon()}
               className="counter-icon"
               style={{ backgroundColor: mtgThemes[this.state.icon]["fg"] }}
             >
-              <i className={"ms ms-" + mtgThemes[this.state.icon]["icon"]} />
+              <i className={mtgThemes[this.state.icon]["icon"]} />
             </button>
             <h4 className="current-value">{this.state.value}</h4>
           </div>
@@ -73,14 +73,14 @@ class Counter extends Component {
             <button className="value-5" onClick={() => { this.handleChange("negative", 5) }}>-5</button>
             <button className="value-1" onClick={() => { this.handleChange("negative", 1) }}>-1</button>
           </div>
-        </div>
 
-        <div className="resets button-group has-5-buttons">
-          <button onClick={() => this.handleChange("reset", 0) }>0</button>
-          <button onClick={() => this.handleChange("reset", 20) }>20</button>
-          <button onClick={() => this.handleChange("reset", 40) }>40</button>
-          <button onClick={() => this.handleChange("reset", 60) }>60</button>
-          <button onClick={() => this.handleChange("reset", 80) }>80</button>
+          <div className="resets button-group has-5-buttons">
+            <button onClick={() => this.handleChange("reset", 0) }>0</button>
+            <button onClick={() => this.handleChange("reset", 20) }>20</button>
+            <button onClick={() => this.handleChange("reset", 40) }>40</button>
+            <button onClick={() => this.handleChange("reset", 60) }>60</button>
+            <button onClick={() => this.handleChange("reset", 80) }>80</button>
+          </div>
         </div>
 
         {

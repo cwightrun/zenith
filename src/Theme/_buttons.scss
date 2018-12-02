@@ -19,15 +19,43 @@ button {
     height: 100%;
     opacity: 0;
     will-change: opacity;
-    transition: opacity ease 100ms;
+    transition: opacity ease 60ms;
   }
 
   &:active::after {
     opacity: 0.5;
+    transition: none;
   }
-  
+
   &:focus,
   &:active {
     outline: none;
-  }  
+  }
+
+  &.counter-icon::after,
+  &.counter-icon:active::after {
+    border-radius: 100%;
+  }
+
+  &.delete-counter {
+    position: absolute;
+    top: 2.5%;
+    right: 2.5%;
+
+    div {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      width: 21px;
+      height: 21px;
+      line-height: 21px;
+      background: #F4511E;
+      border-radius: 36px;
+      font-size: 17px;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
 }
