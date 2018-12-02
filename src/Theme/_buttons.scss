@@ -40,15 +40,15 @@ button {
   &.delete-counter {
     position: absolute;
     top: 2.5%;
-    right: 2.5%;
+    right: 0;
 
     div {
       display: flex;
       align-content: center;
       justify-content: center;
-      width: 21px;
-      height: 21px;
-      line-height: 21px;
+      width: 17px;
+      height: 17px;
+      line-height: 17px;
       background: #F4511E;
       border-radius: 36px;
       font-size: 17px;
