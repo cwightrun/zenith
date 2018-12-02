@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "localforage": "^1.7.3",
     "mana-font": "^1.4.1",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
@@ -28,7 +29,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "localforage": "^1.7.3",
     "react-document-meta": "^3.0.0-beta.2",
     "uuid": "^3.3.2"
   }
