@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { wrapGrid } from "animate-css-grid";
 import localforage from "localforage";
 import uuid from "uuid/v4";
 import Header from "./Header/Header";
@@ -10,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {counters: []};
+    this.allCounters = React.createRef();
   }
 
   loadCounters = () => {
@@ -25,7 +27,7 @@ class App extends Component {
   addCounter = () => {
     let prevState = this.state;
     if (!prevState.counters) {
-      prevState.counters = [{ id: uuid(), value: 0, icon: 0 }]
+      prevState = { counters: [{ id: uuid(), value: 0, icon: 0 }] }
     } else {
       this.setState(prevState => ({ counters: [...prevState.counters, { id: uuid(), value: 0, icon: 0 }] }));
     }
@@ -38,13 +40,19 @@ class App extends Component {
   };
 
   componentWillMount = () => {
-    this.loadCounters();
   }
-
+  
+  componentDidMount = () => {
+    this.loadCounters();
+    if (this.allCounters.current) {
+      wrapGrid(this.allCounters.current, { easing : 'easeInOut', stagger: 10, duration: 250 });
+    }
+  }
+  
   componentDidUpdate = () => {
     this.saveCounters();
   }
-
+  
   render() {
     return (
       <div className="App">
@@ -54,13 +62,15 @@ class App extends Component {
             <button onClick={() => {this.addCounter()}}>Add Counter</button>
             <button onClick={() => { this.setState({counters: []})}}>Remove All</button>
           </div>
-          <div className="all-counters">
+          <div className="all-counters" ref={this.allCounters}>
             {this.state.counters && this.state.counters.map((counter, i) => (
+              <div className="counter" key={counter.id}>
               <Counter
                 removeCounter={this.removeCounter}
                 counter={counter}
                 key={counter.id}
               />
+              </div>
             ))}
           </div>
         </main>

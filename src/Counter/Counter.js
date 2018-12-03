@@ -47,7 +47,7 @@ class Counter extends Component {
   render() {
     this.saveCounter(this.props.counter.id);
     return (
-      <div className="counter">
+      <div>
         <button className="delete-counter" onClick={() => this.props.removeCounter(this.props.counter.id)}>
           <div>&#215;</div>
         </button>
