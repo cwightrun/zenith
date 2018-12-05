@@ -3,19 +3,20 @@ import { wrapGrid } from "animate-css-grid";
 import localforage from "localforage";
 import uuid from "uuid/v4";
 import Header from "./Header/Header";
-import Counter from "./Counter/Counter";
+import Grid from "./Grid/Grid";
 import "./App.scss";
 import "mana-font";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {counters: []};
-    this.allCounters = React.createRef();
+    this.state = {counters: [], loaded: this.props.loaded};
   }
 
   loadCounters = () => {
-    localforage.getItem('counters', (err, counters) => { this.setState({counters}); });
+    localforage.getItem('counters', (err, counters) => { 
+      this.setState({counters: counters, loaded: true});
+    });
   }
 
   saveCounters = () => {
@@ -38,15 +39,9 @@ class App extends Component {
       counters: prevState.counters.filter(counter => counter.id !== id)
     }));
   };
-
-  componentWillMount = () => {
-  }
   
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.loadCounters();
-    if (this.allCounters.current) {
-      wrapGrid(this.allCounters.current, { easing : 'easeInOut', stagger: 10, duration: 250 });
-    }
   }
   
   componentDidUpdate = () => {
@@ -54,28 +49,24 @@ class App extends Component {
   }
   
   render() {
-    return (
-      <div className="App">
-        <Header />
-        <main>
-          <div className="manage-counters">
-            <button onClick={() => {this.addCounter()}}>Add Counter</button>
-            <button onClick={() => { this.setState({counters: []})}}>Remove All</button>
-          </div>
-          <div className="all-counters" ref={this.allCounters}>
-            {this.state.counters && this.state.counters.map((counter, i) => (
-              <div className="counter" key={counter.id}>
-              <Counter
-                removeCounter={this.removeCounter}
-                counter={counter}
-                key={counter.id}
-              />
-              </div>
-            ))}
-          </div>
-        </main>
-      </div>
-    );
+    if (!this.state.loaded) {
+      return(
+        <div className="App"></div>
+      );
+    } else {
+      return (
+        <div className={'App ' + (this.state.loaded && 'is-loaded')}>
+          <Header />
+          <main>
+            <div className="manage-counters">
+              <button onClick={() => {this.addCounter()}}>Add Counter</button>
+              <button onClick={() => { this.setState({counters: []})}}>Remove All</button>
+            </div>
+            <Grid counters={this.state.counters} removeCounter={this.removeCounter} />
+          </main>
+        </div>
+      );
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import localforage from "localforage";
+import Color from "color";
 import mtgThemes from '../Theme/mtgThemes';
 
 class Counter extends Component {
@@ -24,9 +25,19 @@ class Counter extends Component {
 
   handleChange = (dir, amt = 1) => {
     let value = this.state.value;
-    if (dir === "negative") value = value - amt;
-    if (dir === "positive") value = value + amt;
-    if (dir === "reset") value = amt;
+    switch (dir) {
+      case "negative":
+        value = value - amt;
+        break;
+      case "positive":
+        value = value + amt;
+        break;
+      case "reset":
+        value = amt;
+        break;
+      default:
+        break;
+    }
     this.setState({ value });
   };
 
@@ -46,21 +57,22 @@ class Counter extends Component {
   
   render() {
     this.saveCounter(this.props.counter.id);
+
     return (
       <div>
         <button className="delete-counter" onClick={() => this.props.removeCounter(this.props.counter.id)}>
           <div>&#215;</div>
         </button>
-        <div className="counter-content">
+        <div className="counter-content" style={{ backgroundColor: Color(mtgThemes[this.state.icon]['color']).darken(0.5).desaturate(0.5) }}>
           <div className="value-wrapper">
-            <button
+            <div
               onClick={() => this.changeIcon()}
               className="counter-icon"
-              style={{ backgroundColor: mtgThemes[this.state.icon]["fg"] }}
+              style={{ backgroundColor: mtgThemes[this.state.icon]['color'] }}
             >
               <i className={mtgThemes[this.state.icon]["icon"]} />
-            </button>
-            <h4 className="current-value">{this.state.value}</h4>
+            </div>
+            <h4 className={'current-value ' + (this.state.value < 0 && 'is-negative')}>{this.state.value}</h4>
           </div>
 
           <div className="increment-group col-pos button-group has-3-buttons">
