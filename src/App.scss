@@ -1,9 +1,11 @@
 // @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:600|Playfair+Display:900|Roboto:300,500');
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:900|Roboto+Condensed|Roboto+Slab:300");
 @import 'Theme/buttons';
-@import 'Grid/Grid';
-@import 'Header/Header';
-@import 'Counter/Counter';
+@import 'Components/Header/Header';
+@import 'Components/Grid/Grid';
+@import 'Components/Counter/Counter';
+@import 'Components/DiceModal/DiceModal';
+@import 'Components/Footer/Footer';
 
 body {
   font-family: "Roboto Condensed", sans-serif;

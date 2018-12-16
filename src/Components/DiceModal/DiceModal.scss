@@ -1,0 +1,34 @@
+.modal {
+  &,
+  &-curtain {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background: rgba(black, 0.6);
+  }
+
+  &-curtain {
+    z-index: 11;
+  }
+
+  &-hide {
+    opacity: 0;
+    display: none;
+  }
+
+  &-content {
+    position:fixed;
+    padding: 40px;
+    width: calc(100% - 120px);
+    height: auto;
+    top:50%;
+    left:50%;
+    z-index: 20;
+    background: #455A64;
+    transform: translate(-50%,-50%);
+    box-shadow: inset 0 0 0 4px tomato;
+  }
+}

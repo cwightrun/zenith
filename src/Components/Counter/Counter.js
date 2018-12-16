@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import localforage from "localforage";
 import Color from "color";
-import mtgThemes from '../Theme/mtgThemes';
+import mtgThemes from '../../Theme/mtgThemes';
 
 class Counter extends Component {
   constructor(props) {
@@ -94,10 +94,6 @@ class Counter extends Component {
             <button onClick={() => this.handleChange("reset", 80) }>80</button>
           </div>
         </div>
-
-        {
-          // <button onClick={() => this.props.removeCounter(this.props.counter.id)}>Delete</button>        
-        }
       </div>
     );
   }

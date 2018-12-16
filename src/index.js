@@ -8,8 +8,8 @@ import * as serviceWorker from './serviceWorker';
 class AppWrapper extends Component {
   render() {
     const meta = {
-      title: 'zenith - a counter app.',
-      description: 'Primarily meant for Magic the Gathering, but can be used for other trading card games as well.',
+      title: 'counterspell.app | A counter app.',
+      description: 'A counter for life, mana, tokens, etc. - Primarily meant for Magic the Gathering, but has numerous other uses.',
       meta: {
         charset: 'utf-8',
         name: {
