@@ -12,7 +12,7 @@ import "mana-font";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {counters: [], loaded: this.props.loaded};
+    this.state = {counters: [], loaded: false};
   }
 
   loadCounters = () => {
@@ -61,27 +61,31 @@ class App extends Component {
   }
   
   render() {
-    if (!this.state.loaded) {
-      return(
-        <div className="App"></div>
-      );
-    } else {
       return (
         <div className={'App ' + (this.state.loaded && 'is-loaded')}>
           <Header />
-          <main>
+          <main className="main">
             <div className="manage-counters">
               <button onClick={() => {this.addCounter()}}>Add Counter</button>
               <button onClick={() => {this.setState({counters: []})}}>Remove All</button>
-              <button onClick={() => {this.toggleModal()}}>Roll Dice</button>
+              {
+                // <button onClick={() => {this.toggleModal()}}>Roll Dice</button>
+              }
             </div>
             <Grid counters={this.state.counters} removeCounter={this.removeCounter} />
             <DiceModal show={this.state.modal} toggleModal={this.toggleModal} />
           </main>
           <Footer />
+          <div className="stripes layer-1">
+            <div className="stripe"></div>
+            <div className="stripe"></div>
+            <div className="stripe"></div>
+            <div className="stripe"></div>
+            <div className="stripe"></div>
+            <div className="stripe"></div>
+          </div>
         </div>
       );
-    }
   }
 }
 

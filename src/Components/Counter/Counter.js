@@ -59,11 +59,11 @@ class Counter extends Component {
     this.saveCounter(this.props.counter.id);
 
     return (
-      <div>
+      <div className="counter">
         <button className="delete-counter" onClick={() => this.props.removeCounter(this.props.counter.id)}>
           <div>&#215;</div>
         </button>
-        <div className="counter-content" style={{ backgroundColor: Color(mtgThemes[this.state.icon]['color']).darken(0.5).desaturate(0.5) }}>
+        <div className="counter-content" style={{ backgroundColor: Color(mtgThemes[this.state.icon]['color']).darken(0.5).desaturate(0.5).fade(0.2) }}>
           <div className="value-wrapper">
             <div
               onClick={() => this.changeIcon()}
