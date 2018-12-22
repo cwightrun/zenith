@@ -57,7 +57,7 @@ body {
   transform: skewY(-10deg) translate(-50%, -50%);
   left: 50%;
   transition: width 1.4s ease,
-              transform 1.4s ease;
+              opacity 1.4s ease;
   transition-delay: 000ms;
   opacity: 1;
   will-change: width, transform, opacity;
