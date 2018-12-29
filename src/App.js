@@ -16,7 +16,6 @@ class App extends Component {
 
   loadCounters = () => {
     localforage.getItem('counters', (err, counters) => { 
-      console.log('the counters', counters);
       this.setState({
         counters: counters,
         modal: false,
