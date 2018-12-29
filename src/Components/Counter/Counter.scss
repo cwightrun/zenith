@@ -1,3 +1,7 @@
+.counter-transition-item {
+  transform-origin: 100% 0%;
+}
+
 .counter-content {
   transition: background 120ms ease;
 }
@@ -51,7 +55,7 @@
 
   button {
     flex-basis: 34%;
-    font-size: 16px;
+    font-size: 18px;
     padding: 6px;
   }
 }
@@ -72,7 +76,7 @@
 
 .increment-group button,
 .decrement-group button {
-  font-size: 14px;
+  // font-size: 18px;
 }
 
 .resets button:first-of-type::after {

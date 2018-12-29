@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { wrapGrid } from "animate-css-grid";
 import localforage from "localforage";
 import uuid from "uuid/v4";
 import Header from "./Components/Header/Header";
@@ -17,16 +16,24 @@ class App extends Component {
 
   loadCounters = () => {
     localforage.getItem('counters', (err, counters) => { 
+      console.log('the counters', counters);
       this.setState({
         counters: counters,
         modal: false,
-        loaded: true});
+        loaded: true
+      });
     });
   }
 
   saveCounters = () => {
     localforage.setItem('counters', this.state.counters, function (err) {
       if (err) console.error('Storage error', err);
+    });
+  }
+
+  removeAllCounters = () => {
+    localforage.clear(() => {
+      this.setState({counters: []});
     });
   }
 
@@ -47,6 +54,7 @@ class App extends Component {
     }));
   };
 
+
   toggleModal = (modalState) => {
     let modal = !this.state.modal;
     this.setState({modal});
@@ -61,31 +69,33 @@ class App extends Component {
   }
   
   render() {
-      return (
-        <div className={'App ' + (this.state.loaded && 'is-loaded')}>
-          <Header />
-          <main className="main">
-            <div className="manage-counters">
-              <button onClick={() => {this.addCounter()}}>Add Counter</button>
-              <button onClick={() => {this.setState({counters: []})}}>Remove All</button>
-              {
-                // <button onClick={() => {this.toggleModal()}}>Roll Dice</button>
-              }
-            </div>
-            <Grid counters={this.state.counters} removeCounter={this.removeCounter} />
-            <DiceModal show={this.state.modal} toggleModal={this.toggleModal} />
-          </main>
-          <Footer />
-          <div className="stripes layer-1">
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
-            <div className="stripe"></div>
+    return (
+      <div className={'App ' + (this.state.loaded && 'is-loaded')}>
+        <Header />
+        <main className="main">
+          <div className="manage-counters">
+            <button onClick={() => {this.addCounter()}}>Add Counter</button>
+            <button onClick={() => {this.removeAllCounters()}}>Remove All</button>
+            {
+              // <button onClick={() => {this.toggleModal()}}>Roll Dice</button>
+            }
           </div>
+          {this.state.counters &&
+            <Grid counters={this.state.counters} removeCounter={this.removeCounter} />
+          }
+          <DiceModal show={this.state.modal} toggleModal={this.toggleModal} />
+        </main>
+        <Footer />
+        <div className="stripes layer-1">
+          <div className="stripe"></div>
+          <div className="stripe"></div>
+          <div className="stripe"></div>
+          <div className="stripe"></div>
+          <div className="stripe"></div>
+          <div className="stripe"></div>
         </div>
-      );
+      </div>
+    );
   }
 }
 

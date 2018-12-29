@@ -1,5 +1,5 @@
 {
-  "name": "zenith",
+  "name": "counterspell",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,14 +9,13 @@
     "mana-font": "^1.4.1",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
-    "react-addons-css-transition-group": "^15.6.2",
     "react-app-rewired": "^1.6.2",
     "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^16.6.3",
     "react-fastclick": "^3.0.2",
     "react-loading": "^2.0.3",
     "react-scripts": "2.1.1",
-    "react-stonecutter": "^0.3.9",
+    "react-spring": "^7.2.5",
     "styled-jsx": "^3.1.2",
     "uuid": "^3.3.2"
   },

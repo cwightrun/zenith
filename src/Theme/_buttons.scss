@@ -1,4 +1,7 @@
 
+@import "Theme/color-variables";
+@import "Theme/color-classes";
+
 button {
   position: relative;
   appearance: none;
@@ -52,6 +55,7 @@ button {
       background: #F4511E;
       border-radius: 36px;
       font-size: 17px;
+      border: 2px solid map-get($red, 'darken-4');
     }
 
     &::after {

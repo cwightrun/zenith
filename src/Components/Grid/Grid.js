@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { wrapGrid } from "animate-css-grid";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Counter from "../Counter/Counter";
+import { Transition } from 'react-spring'
 
 class Grid extends Component {
   constructor(props) {
@@ -10,22 +10,29 @@ class Grid extends Component {
   }
 
   componentDidMount() {
-    // will automatically clean itself up when dom node is removed
     wrapGrid(this.grid.current, { easing : 'easeInOut', stagger: 10, duration: 360 });
   }
   
   render() {
+    const items = this.props.counters;
     return (
       <div className="grid all-counters" ref={this.grid}>
-      {this.props.counters && this.props.counters.map((counter, i) => (
-        <div className="counter" key={counter.id}>
-          <Counter
-            removeCounter={this.props.removeCounter}
-            counter={counter}
-            key={counter.id}
-          />
-        </div>
-      ))}
+      <Transition
+        items={items} keys={item => item.id}
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}
+        config={{ duration: 180 }}>
+        {item => props =>
+          <div style={props} className='counter-transition-item'>
+            <Counter
+              removeCounter={this.props.removeCounter}
+              counter={item}
+              key={item.id}
+            />
+          </div>
+        }
+      </Transition>
       </div>
     );
   }
