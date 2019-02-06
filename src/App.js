@@ -7,20 +7,36 @@ import DiceModal from "./Components/DiceModal/DiceModal";
 import Footer from "./Components/Footer/Footer";
 import "./App.scss";
 import "mana-font";
+import firebase from './firebase.js';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {counters: [], loaded: false};
+    this.state = {
+      counters: [],
+      loaded: false,
+    };
   }
 
   loadCounters = () => {
-    localforage.getItem('counters', (err, counters) => { 
+    // Acquire the counters from local storage:
+    localforage.getItem('counters', (err, counters) => {
       this.setState({
         counters: counters,
         modal: false,
         loaded: true
       });
+    });
+
+    // Set a unique Game ID:
+    localforage.getItem('gameID', (err, gameID) => {
+      if (!gameID) {
+        this.setState({gameID: uuid()});
+      } else {
+        this.setState({gameID: gameID});
+      }
+
+      localforage.setItem('gameID', this.state.gameID);
     });
   }
 
@@ -28,6 +44,12 @@ class App extends Component {
     localforage.setItem('counters', this.state.counters, function (err) {
       if (err) console.error('Storage error', err);
     });
+
+    // const countersRef = firebase.database().ref('counters');
+    // const currentState = {
+    //   counters: this.state.counters
+    // }
+    // countersRef.push(currentState);
   }
 
   removeAllCounters = () => {
@@ -53,20 +75,19 @@ class App extends Component {
     }));
   };
 
-
   toggleModal = (modalState) => {
     let modal = !this.state.modal;
     this.setState({modal});
   }
-  
+
   componentWillMount = () => {
     this.loadCounters();
   }
-  
+
   componentDidUpdate = () => {
     this.saveCounters();
   }
-  
+
   render() {
     return (
       <div className={'App ' + (this.state.loaded && 'is-loaded')}>
@@ -80,7 +101,12 @@ class App extends Component {
             }
           </div>
           {this.state.counters &&
-            <Grid counters={this.state.counters} removeCounter={this.removeCounter} />
+            <Grid
+              counters={this.state.counters}
+              saveCounters={this.saveCounters}
+              loadCounters={this.loadCounters}
+              removeCounter={this.removeCounter}
+              />
           }
           <DiceModal show={this.state.modal} toggleModal={this.toggleModal} />
         </main>
@@ -99,3 +125,16 @@ class App extends Component {
 }
 
 export default App;
+
+
+// localforage.getItem('counters', (err, counters) => {
+//   counters.forEach(counter => {
+//     if (counter.id === this.state.id) {
+//       this.setState({
+//         id: counter.id,
+//         value: this.state.counter.value,
+//         icon: this.props.counter.icon
+//       });
+//     }
+//   });
+// });

@@ -13,15 +13,15 @@ class Counter extends Component {
     };
   }
 
-  loadCounter = (id) => {
-    localforage.getItem(id, (err, value) => { this.setState({value}); });
-  }
+  // loadCounter = (id) => {
+  //   localforage.getItem(id, (err, value) => { this.setState({value}); });
+  // }
 
-  saveCounter = (id) => {
-    localforage.setItem(id, this.state, function (err) {
-      if (err) console.error('Storage error', err);
-    });
-  }
+  // saveCounter = (id) => {
+  //   localforage.setItem(id, this.state, function (err) {
+  //     if (err) console.error('Storage error', err);
+  //   });
+  // }
 
   handleChange = (dir, amt = 1) => {
     let value = this.state.value;
@@ -39,6 +39,7 @@ class Counter extends Component {
         break;
     }
     this.setState({ value });
+    this.props.saveCounters();
   };
 
   changeIcon = () => {
@@ -50,13 +51,33 @@ class Counter extends Component {
   };
 
   componentDidMount = () => {
+    // Grab the data from LF, update the counters to match.
     localforage.getItem(this.props.counter.id, (err, value) => {
       this.setState(value); 
     });
+
+    // localforage.getItem('counters', (err, counters) => {
+    //   counters.forEach(counter => {
+    //     if (counter.id === this.state.id) {
+    //       this.setState({
+    //         id: counter.id,
+    //         value: this.state.value,
+    //         icon: this.state.icon
+    //       });
+    //     }
+    //   });
+    // });
+
+    // load all counters
+    // update necessary record in the counters
+    // save the updated counters
+
+
+    // this.props.loadCounters();
   }
   
   render() {
-    this.saveCounter(this.props.counter.id);
+    this.props.saveCounters();
 
     return (
       <div className="counter">

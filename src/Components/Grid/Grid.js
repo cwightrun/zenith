@@ -26,6 +26,8 @@ class Grid extends Component {
         {item => props =>
           <div style={props} className='counter-transition-item'>
             <Counter
+              loadCounters={this.props.loadCounters}
+              saveCounters={this.props.saveCounters}
               removeCounter={this.props.removeCounter}
               counter={item}
               key={item.id}
